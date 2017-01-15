@@ -7,7 +7,9 @@ webpackJsonp([0],[
 
 	__webpack_require__(/*! ./~/angular-ui-grid/ui-grid.min.css */ 1);
 	__webpack_require__(/*! ./content/site.css */ 9);
-	__webpack_require__(/*! ./app/app */ 11)
+	__webpack_require__(/*! ./app/app.js */ 11)
+	__webpack_require__(/*! ./app/services.js */ 12)
+	__webpack_require__(/*! ./app/gridController.js */ 13)
 
 /***/ },
 /* 1 */
@@ -446,7 +448,7 @@ webpackJsonp([0],[
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: Verdana;\n}\n\n.grid {\n  height: 98vh;\n}", ""]);
+	exports.push([module.id, "body {\n  font-family: Verdana;\n}\n\n.grid {\n  height: 98vh;\n}\n\n/* The snackbar - position it at the bottom and in the middle of the screen */\r\n#snackbar {\r\n    visibility: hidden; /* Hidden by default. Visible on click */\r\n    min-width: 250px; /* Set a default minimum width */\r\n    margin-left: -125px; /* Divide value of min-width by 2 */\r\n    background-color: #0094ff; \r\n    color: #fff; /* White text color */\r\n    text-align: center; /* Centered text */\r\n    border-radius: 2px; /* Rounded borders */\r\n    padding: 16px; /* Padding */\r\n    position: fixed; /* Sit on top of the screen */\r\n    z-index: 1; /* Add a z-index if needed */\r\n    left: 50%; /* Center the snackbar */\r\n    bottom: 30px; /* 30px from the bottom */\r\n}\r\n\r\n/* Show the snackbar when clicking on a button (class added with JavaScript) */\r\n#snackbar.show {\r\n    visibility: visible; /* Show the snackbar */\r\n\r\n/* Add animation: Take 0.5 seconds to fade in and out the snackbar. \r\nHowever, delay the fade out process for 2.5 seconds */\r\n    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;\r\n    animation: fadein 0.5s, fadeout 0.5s 2.5s;\r\n}\r\n\r\n/* Animations to fade the snackbar in and out */\r\n@-webkit-keyframes fadein {\r\n    from {bottom: 0; opacity: 0;} \r\n    to {bottom: 30px; opacity: 1;}\r\n}\r\n\r\n@keyframes fadein {\r\n    from {bottom: 0; opacity: 0;}\r\n    to {bottom: 30px; opacity: 1;}\r\n}\r\n\r\n@-webkit-keyframes fadeout {\r\n    from {bottom: 30px; opacity: 1;} \r\n    to {bottom: 0; opacity: 0;}\r\n}\r\n\r\n@keyframes fadeout {\r\n    from {bottom: 30px; opacity: 1;}\r\n    to {bottom: 0; opacity: 0;}\r\n}", ""]);
 	
 	// exports
 
@@ -458,11 +460,49 @@ webpackJsonp([0],[
   \********************/
 /***/ function(module, exports) {
 
+	angular.module("myApp", ['ui.grid', 'ui.grid.selection']);
 	
-	var app = angular.module("myApp", ['ui.grid', 'ui.grid.selection']);
 	
-	app.controller("gridController", ['$scope', '$http', 'uiGridConstants', 'azureDBService', function ($scope, $http, uiGridConstants, azureDBService) {
 	
+	
+
+
+/***/ },
+/* 12 */
+/*!*************************!*\
+  !*** ./app/services.js ***!
+  \*************************/
+/***/ function(module, exports) {
+
+	angular.module("myApp").factory('azureDBService', function ($http, $q, $rootScope) {
+	    return {
+	        getAllEmployees: function () {
+	            return $http({
+	                method: 'GET',
+	                url: 'http://web-api-group01.azurewebsites.net//api/aw/v1/employees',
+	            });
+	        },
+	
+	        deleteEmployee: function (index) {
+	            return $http({
+	                method: 'DELETE',
+	                url: 'http://web-api-group01.azurewebsites.net//api/aw/v1/employees',
+	                data: { 'index': index }
+	            });
+	        }
+	    };
+	});
+
+/***/ },
+/* 13 */
+/*!*******************************!*\
+  !*** ./app/gridController.js ***!
+  \*******************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var showToastMessage = __webpack_require__(/*! ./helper.js */ 14)
+	
+	angular.module("myApp").controller("gridController", ['$scope', '$http', 'uiGridConstants', 'azureDBService', function ($scope, $http, uiGridConstants, azureDBService) {
 	    $scope.mySelected = [];
 	    $scope.gridOptions = {
 	        multiSelect: true,
@@ -470,19 +510,15 @@ webpackJsonp([0],[
 	        showGridFooter: true,
 	        showColumnFooter: true,
 	        enableFiltering: true,
-	        //columnDefs: [
-	        //    { field: 'id', width: '13%', footerCellTemplate: '<div class="ui-grid-cell-contents"><button class="btn btn-success" ng-click="printConsole()">Bulk Update</button></div>' },
-	        //    { field: 'name', width: '13%' },
-	        //    { field: 'city', width: '13%' },
-	        //    { field: 'state', width: '13%' },
-	        //    { field: 'country', width: '13%' },
-	        //    { name: 'customCellTemplate', field: 'company', width: '14%', footerCellTemplate: '<div class="ui-grid-cell-contents"><select ng-model="templateCompany"><option value="volvo">Volvo</option><option value="saab">Saab</option></select></div>' },
-	        //    { field: 'favoriteNumber', width: '13%' },
-	        //    { field: 'sex', width: '13%' },
-	        //],
+	        onRegisterApi: function (gridApi) {
+	            $scope.gridApi = gridApi;
+	            gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+	                $scope.SelectedRow = row; // $scope.gridOptions.data.indexOf(row.entity);
+	            });
+	        },
 	        columnDefs: [
 	            { field: 'BusinessEntityID', width: '13%', enableFiltering: true },
-	            { field: 'Title', width: '13%', enableFiltering : true },
+	            { field: 'Title', width: '13%', enableFiltering: true },
 	            { field: 'FirstName', width: '13%', enableFiltering: true },
 	            { field: 'MiddleName', width: '13%', enableFiltering: true },
 	            { field: 'LastName', width: '13%', enableFiltering: true },
@@ -502,119 +538,31 @@ webpackJsonp([0],[
 	        ],
 	    };
 	
-	
 	    azureDBService.getAllEmployees()
 	    .then(function (result) {
-	        console.log(result.data);
+	        //console.log(result.data);
 	        $scope.gridOptions.data = result.data;
 	        showToastMessage(result);
 	    }, function (error) {
 	        showToastMessage(error);
 	    });
-	
 	}]);
-	
-	var fakeData = [
-	      {
-	          "id": 0,
-	          "name": "Mayer Leonard",
-	          "city": "Kapowsin",
-	          "state": "Hawaii",
-	          "country": "United Kingdom",
-	          "company": "Ovolo",
-	          "favoriteNumber": 7,
-	          "sex": true
-	      },
-	      {
-	          "id": 1,
-	          "name": "Koch Becker",
-	          "city": "Johnsonburg",
-	          "state": "New Jersey",
-	          "country": "Madagascar",
-	          "company": "Eventage",
-	          "favoriteNumber": 2,
-	          "sex": false
-	      },
-	      {
-	          "id": 2,
-	          "name": "Lowery Hopkins",
-	          "city": "Blanco",
-	          "state": "Arizona",
-	          "country": "Ukraine",
-	          "company": "Comtext",
-	          "favoriteNumber": 3,
-	          "sex": true
-	      },
-	      {
-	          "id": 3,
-	          "name": "Walters Mays",
-	          "city": "Glendale",
-	          "state": "Illinois",
-	          "country": "New Zealand",
-	          "company": "Corporana",
-	          "favoriteNumber": 6,
-	          "sex": false
-	      },
-	      {
-	          "id": 4,
-	          "name": "Shaw Lowe II",
-	          "city": "Coultervillle",
-	          "state": "Wyoming",
-	          "country": "Ecuador",
-	          "company": "Isologica",
-	          "favoriteNumber": 2,
-	          "sex": true
-	      }
-	];
-	
-	
-	////// Angular Factories , provide service to access database.
-	//app.factory('dbService', function ($http, $q, $rootScope) {
-	//    return {
-	//        saveEmployeeData: function (metaData) {
-	//            console.log(metaData);
-	//            var deferred = $q.defer();
-	//            $http.post('Home/SaveEmployee', { 'metaData': metaData }).success(deferred.resolve).error(deferred.reject);
-	//            return deferred.promise;
-	//        },
-	//        getEmployees: function () {
-	//            var deferred = $q.defer();
-	//            $http.get('api/employees').success(deferred.resolve).error(deferred.reject);
-	//            return deferred.promise;
-	//        },
-	//        getStaticData: function ()
-	//        {
-	//            return fakeData;
-	//        },
-	//    };
-	//});
-	
-	app.factory('azureDBService', function ($http, $q, $rootScope) {
-	    return {
-	        getAllEmployees: function () {
-	            return $http({
-	                method: 'GET',
-	                url: 'http://web-api-group01.azurewebsites.net//api/aw/v1/employees',
-	            });
-	        },
-	
-	        deleteEmployee: function (index) {
-	            return $http({
-	                method: 'DELETE',
-	                url: 'http://web-api-group01.azurewebsites.net//api/aw/v1/employees',
-	                data: { 'index': index }
-	            });
-	        }
-	    };
-	});
-	
+
+/***/ },
+/* 14 */
+/*!***********************!*\
+  !*** ./app/helper.js ***!
+  \***********************/
+/***/ function(module, exports) {
+
 	function showToastMessage(error) {
-	    console.log(error);
 	    var x = document.getElementById("snackbar")
 	    x.className = "show";
 	    x.innerHTML = "Status Code : " + error.status + " Status Text : " + error.statusText;
 	    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 	}
+	
+	module.exports = showToastMessage;
 
 /***/ }
 ]);

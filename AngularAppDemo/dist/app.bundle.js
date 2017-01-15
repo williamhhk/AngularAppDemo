@@ -10,6 +10,9 @@ webpackJsonp([0],[
 	__webpack_require__(/*! ./app/app.js */ 11)
 	__webpack_require__(/*! ./app/services.js */ 12)
 	__webpack_require__(/*! ./app/gridController.js */ 13)
+	__webpack_require__(/*! ./app/components/grid/grid-directive.js */ 15)
+	__webpack_require__(/*! ./app/components/trace/trace-directive.js */ 17)
+
 
 /***/ },
 /* 1 */
@@ -448,7 +451,7 @@ webpackJsonp([0],[
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: Verdana;\n}\n\n.grid {\n  height: 98vh;\n}\n\n/* The snackbar - position it at the bottom and in the middle of the screen */\r\n#snackbar {\r\n    visibility: hidden; /* Hidden by default. Visible on click */\r\n    min-width: 250px; /* Set a default minimum width */\r\n    margin-left: -125px; /* Divide value of min-width by 2 */\r\n    background-color: #0094ff; \r\n    color: #fff; /* White text color */\r\n    text-align: center; /* Centered text */\r\n    border-radius: 2px; /* Rounded borders */\r\n    padding: 16px; /* Padding */\r\n    position: fixed; /* Sit on top of the screen */\r\n    z-index: 1; /* Add a z-index if needed */\r\n    left: 50%; /* Center the snackbar */\r\n    bottom: 30px; /* 30px from the bottom */\r\n}\r\n\r\n/* Show the snackbar when clicking on a button (class added with JavaScript) */\r\n#snackbar.show {\r\n    visibility: visible; /* Show the snackbar */\r\n\r\n/* Add animation: Take 0.5 seconds to fade in and out the snackbar. \r\nHowever, delay the fade out process for 2.5 seconds */\r\n    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;\r\n    animation: fadein 0.5s, fadeout 0.5s 2.5s;\r\n}\r\n\r\n/* Animations to fade the snackbar in and out */\r\n@-webkit-keyframes fadein {\r\n    from {bottom: 0; opacity: 0;} \r\n    to {bottom: 30px; opacity: 1;}\r\n}\r\n\r\n@keyframes fadein {\r\n    from {bottom: 0; opacity: 0;}\r\n    to {bottom: 30px; opacity: 1;}\r\n}\r\n\r\n@-webkit-keyframes fadeout {\r\n    from {bottom: 30px; opacity: 1;} \r\n    to {bottom: 0; opacity: 0;}\r\n}\r\n\r\n@keyframes fadeout {\r\n    from {bottom: 30px; opacity: 1;}\r\n    to {bottom: 0; opacity: 0;}\r\n}", ""]);
+	exports.push([module.id, "body {\r\n  font-family: Verdana;\r\n}\r\n\r\n.grid {\r\n  height: 80vh;\r\n}\r\n\r\n/* The snackbar - position it at the bottom and in the middle of the screen */\r\n#snackbar {\r\n    visibility: hidden; /* Hidden by default. Visible on click */\r\n    min-width: 250px; /* Set a default minimum width */\r\n    margin-left: -125px; /* Divide value of min-width by 2 */\r\n    background-color: #0094ff; \r\n    color: #fff; /* White text color */\r\n    text-align: center; /* Centered text */\r\n    border-radius: 2px; /* Rounded borders */\r\n    padding: 16px; /* Padding */\r\n    position: fixed; /* Sit on top of the screen */\r\n    z-index: 1; /* Add a z-index if needed */\r\n    left: 50%; /* Center the snackbar */\r\n    bottom: 30px; /* 30px from the bottom */\r\n}\r\n\r\n/* Show the snackbar when clicking on a button (class added with JavaScript) */\r\n#snackbar.show {\r\n    visibility: visible; /* Show the snackbar */\r\n\r\n/* Add animation: Take 0.5 seconds to fade in and out the snackbar. \r\nHowever, delay the fade out process for 2.5 seconds */\r\n    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;\r\n    animation: fadein 0.5s, fadeout 0.5s 2.5s;\r\n}\r\n\r\n/* Animations to fade the snackbar in and out */\r\n@-webkit-keyframes fadein {\r\n    from {bottom: 0; opacity: 0;} \r\n    to {bottom: 30px; opacity: 1;}\r\n}\r\n\r\n@keyframes fadein {\r\n    from {bottom: 0; opacity: 0;}\r\n    to {bottom: 30px; opacity: 1;}\r\n}\r\n\r\n@-webkit-keyframes fadeout {\r\n    from {bottom: 30px; opacity: 1;} \r\n    to {bottom: 0; opacity: 0;}\r\n}\r\n\r\n@keyframes fadeout {\r\n    from {bottom: 30px; opacity: 1;}\r\n    to {bottom: 0; opacity: 0;}\r\n}", ""]);
 	
 	// exports
 
@@ -565,7 +568,73 @@ webpackJsonp([0],[
 	    // Other methods goes here
 	
 	}
+	
+	
+	//http://stackoverflow.com/questions/16631064/declare-multiple-module-exports-in-node-js
+	//http://stackoverflow.com/questions/7137397/module-exports-vs-exports-in-node-js/26451885#26451885
 
+/***/ },
+/* 15 */
+/*!***********************************************!*\
+  !*** ./app/components/grid/grid-directive.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var templateUrl = __webpack_require__(/*! ngtemplate!html!./grid.html */ 16);
+	angular.module("myApp").directive('grid', function () {
+	    return {
+	        scope: true,
+	        templateUrl: templateUrl,
+	        //template: '<div ui-grid="gridOptions" ui-grid-selection class="grid"></div>'
+	    };
+	});
+	
+	
+
+
+/***/ },
+/* 16 */
+/*!*****************************************************************************!*\
+  !*** ./~/ngtemplate-loader!./~/html-loader!./app/components/grid/grid.html ***!
+  \*****************************************************************************/
+/***/ function(module, exports) {
+
+	var path = 'F:/csharp/AngularAppDemo/AngularAppDemo/app/components/grid/grid.html';
+	var html = "<div ui-grid=\"gridOptions\" ui-grid-selection class=\"grid\"></div>";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
+
+/***/ },
+/* 17 */
+/*!*************************************************!*\
+  !*** ./app/components/trace/trace-directive.js ***!
+  \*************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var templateUrl = __webpack_require__(/*! ngtemplate!html!./trace.html */ 18);
+	angular.module("myApp").directive('trace', function () {
+	
+	    return {
+	        restrict  : 'E',
+	        scope : true,
+	        templateUrl: templateUrl
+	    };
+	});
+	
+	
+
+
+/***/ },
+/* 18 */
+/*!*******************************************************************************!*\
+  !*** ./~/ngtemplate-loader!./~/html-loader!./app/components/trace/trace.html ***!
+  \*******************************************************************************/
+/***/ function(module, exports) {
+
+	var path = 'F:/csharp/AngularAppDemo/AngularAppDemo/app/components/trace/trace.html';
+	var html = "<pre>data : {{ gridApi.selection.getSelectedRows() | json}}</pre>\r\n\r\n<br />\r\n<br />\r\n";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
 
 /***/ }
 ]);

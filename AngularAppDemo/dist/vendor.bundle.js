@@ -102,25 +102,25 @@
   \********************/
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! angular */15);
-	module.exports = __webpack_require__(/*! angular-ui-grid */17);
+	__webpack_require__(/*! angular */19);
+	module.exports = __webpack_require__(/*! angular-ui-grid */21);
 
 
 /***/ },
 
-/***/ 15:
+/***/ 19:
 /*!****************************!*\
   !*** ./~/angular/index.js ***!
   \****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ./angular */ 16);
+	__webpack_require__(/*! ./angular */ 20);
 	module.exports = angular;
 
 
 /***/ },
 
-/***/ 16:
+/***/ 20:
 /*!******************************!*\
   !*** ./~/angular/angular.js ***!
   \******************************/
@@ -32750,19 +32750,19 @@
 
 /***/ },
 
-/***/ 17:
+/***/ 21:
 /*!************************************!*\
   !*** ./~/angular-ui-grid/index.js ***!
   \************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ./ui-grid */ 18);
+	__webpack_require__(/*! ./ui-grid */ 22);
 	module.exports = 'ui.grid';
 
 
 /***/ },
 
-/***/ 18:
+/***/ 22:
 /*!**************************************!*\
   !*** ./~/angular-ui-grid/ui-grid.js ***!
   \**************************************/

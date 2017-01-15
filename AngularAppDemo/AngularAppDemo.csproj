@@ -85,9 +85,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\components\trace\trace-directive.js" />
+    <Content Include="app\components\trace\trace.html" />
     <Content Include="app\gridController.js" />
     <Content Include="app\components\grid\grid.html" />
-    <Content Include="app\components\grid\grid_directive.js" />
+    <Content Include="app\components\grid\grid-directive.js" />
     <Content Include="app\components\myform\myform.html" />
     <Content Include="app\components\myform\myform_directive.js" />
     <Content Include="app\helper.js" />
@@ -101,6 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="dist\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

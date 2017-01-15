@@ -15,3 +15,28 @@
 2)  Adventureworks DB has different schemaName
     Use modebuilder second parameters.
         modelBuilder.Entity<vEmployee>().ToTable("vEmployee", schemaName: "HumanResources");
+
+
+3)  Html loader , ngtemplate loader
+
+npm install html-loader --save-dev
+npm install ngtemplate-loader --save-dev
+
+e.g.
+
+var templateUrl = require('ngtemplate!html!./grid.html');
+angular.module("myApp").directive('grid', function () {
+    return {
+        scope: true,
+        templateUrl: templateUrl,
+        //template: '<div ui-grid="gridOptions" ui-grid-selection class="grid"></div>'
+    };
+});
+
+4) Added 
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean" : "rimraf dist/*"
+  },
+  to delete old bundle files.
+

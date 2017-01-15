@@ -1,7 +1,8 @@
-﻿app.directive('myform', function () {
+﻿var templateUrl = require('ngtemplate!html!./grid.html');
+app.directive('myform', function () {
     return {
         scope: true,
-        templateUrl: 'components/myform/myform.html'
+        templateUrl: templateUrl
     };
 });
 

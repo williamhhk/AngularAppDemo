@@ -11,9 +11,11 @@
 </head>
 <body>
     <div ng-app="myApp" ng-controller="gridController">
-        <div ui-grid="gridOptions" ui-grid-selection class="grid"></div>
+        <grid></grid>
 
-        <pre>data : {{ gridApi.selection.getSelectedRows() |json}}</pre></br></br>
+
+        <trace debugData="Hello World "></trace>
+        <!--<pre>data : {{ gridApi.selection.getSelectedRows() |json}}</pre></br></br>-->
     </div>
 
     <div id="snackbar">Error...</div>

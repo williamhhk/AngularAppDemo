@@ -1,0 +1,41 @@
+﻿<form class="form-horizontal" name="employeeForm" novalidate>
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col-md-2" for="lblName">Name :</label>
+            <div class="col-md-2">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="idName" name="Name" placeholder="Name" ng-model="metaData.name" required>
+                </div>
+                <span style="color:red" ng-show="!employeeForm.Name.$pristine && employeeForm.Name.$invalid">Name is required.</span>
+
+            </div>
+            <label class="control-label col-md-2" for="lblName">Country :</label>
+            <div class="col-md-2">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="idName" name="Country" placeholder="Country..." ng-model="metaData.country" required>
+                </div>
+                <span style="color:red" ng-show="!employeeForm.Country.$pristine && employeeForm.Country.$invalid">Country is required.</span>
+            </div>
+            <label class="control-label col-md-2" for="lblName">Sex :</label>
+            <div class="col-md-2">
+                <select id="idSex"
+                        name="Sex"
+                        class="form-control"
+                        ng-model="metaData.sex"
+                        ng-options="(item?'Male':'Female') for item in [true, false]"
+                        required></select>
+                <span style="color:red" ng-show="!employeeForm.Sex.$pristine && employeeForm.Sex.$invalid">Field is required.</span>
+            </div>
+
+            <label class="control-label col-md-2" for="lblName">Name :</label>
+            <div class="col-md-2">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="idName" name="Name" placeholder="Name" ng-model="metaData.name" required>
+                </div>
+                <span style="color:red" ng-show="!employeeForm.Name.$pristine && employeeForm.Name.$invalid">Name is required.</span>
+
+            </div>
+        </div>
+    </div>
+
+</form>

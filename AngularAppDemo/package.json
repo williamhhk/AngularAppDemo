@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "angular-ui-grid": "4.0.2",
+    "bootstrap": "3.3.7"
+  },
+  "name": "angularappdemo",
+  "version": "1.0.0",
+  "main": "webpack.config.js",
+  "devDependencies": {
+    "css-loader": "0.26.1",
+    "extract-text-webpack-plugin": "1.0.1",
+    "file-loader": "0.9.0",
+    "style-loader": "0.13.1",
+    "url-loader": "0.5.7",
+    "webpack": "1.14.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

@@ -1,4 +1,4 @@
-﻿var showToastMessage = require('./helper.js')
+﻿var Helper = require('./helper.js')
 
 angular.module("myApp").controller("gridController", ['$scope', '$http', 'uiGridConstants', 'azureDBService', function ($scope, $http, uiGridConstants, azureDBService) {
     $scope.mySelected = [];
@@ -40,8 +40,8 @@ angular.module("myApp").controller("gridController", ['$scope', '$http', 'uiGrid
     .then(function (result) {
         //console.log(result.data);
         $scope.gridOptions.data = result.data;
-        showToastMessage(result);
+        Helper.showToastMessage(result);
     }, function (error) {
-        showToastMessage(error);
+        Helper.showToastMessage(error);
     });
 }]);

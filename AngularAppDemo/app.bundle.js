@@ -500,7 +500,7 @@ webpackJsonp([0],[
   \*******************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var showToastMessage = __webpack_require__(/*! ./helper.js */ 14)
+	var Helper = __webpack_require__(/*! ./helper.js */ 14)
 	
 	angular.module("myApp").controller("gridController", ['$scope', '$http', 'uiGridConstants', 'azureDBService', function ($scope, $http, uiGridConstants, azureDBService) {
 	    $scope.mySelected = [];
@@ -542,9 +542,9 @@ webpackJsonp([0],[
 	    .then(function (result) {
 	        //console.log(result.data);
 	        $scope.gridOptions.data = result.data;
-	        showToastMessage(result);
+	        Helper.showToastMessage(result);
 	    }, function (error) {
-	        showToastMessage(error);
+	        Helper.showToastMessage(error);
 	    });
 	}]);
 
@@ -555,14 +555,17 @@ webpackJsonp([0],[
   \***********************/
 /***/ function(module, exports) {
 
-	function showToastMessage(error) {
-	    var x = document.getElementById("snackbar")
-	    x.className = "show";
-	    x.innerHTML = "Status Code : " + error.status + " Status Text : " + error.statusText;
-	    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-	}
+	module.exports = {
+	    showToastMessage : function (error) {
+	        var x = document.getElementById("snackbar")
+	        x.className = "show";
+	        x.innerHTML = "Status Code : " + error.status + " Status Text : " + error.statusText;
+	        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+	    },
+	    // Other methods goes here
 	
-	module.exports = showToastMessage;
+	}
+
 
 /***/ }
 ]);

@@ -20,5 +20,12 @@ namespace AdventureWorkWebApi.Controllers
             var employees = _ctx.vEmployees.ToList();
             return Ok(_ctx.vEmployees);
         }
+
+        [Route("employees/{id}")]
+        public IHttpActionResult GetEmployee(int id)
+        {
+            var employee = _ctx.vEmployees.Where(i => i.BusinessEntityID == id);
+            return Ok(employee);
+        }
     }
 }

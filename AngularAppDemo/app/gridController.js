@@ -1,7 +1,9 @@
 ﻿var Helper = require('./helper.js')
 
-angular.module("myApp").controller("gridController", ['$scope', '$http', 'uiGridConstants', 'azureDBService', function ($scope, $http, uiGridConstants, azureDBService) {
+angular.module("myGrid", ['myFactory'])
+    .controller("gridController", ['$scope', '$http', 'uiGridConstants', 'azureDBService', function ($scope, $http, uiGridConstants, azureDBService) {
     $scope.mySelected = [];
+    $scope.myName = "WilliamHan";
     $scope.gridOptions = {
         multiSelect: true,
         enableSelectAll: true,
@@ -44,4 +46,12 @@ angular.module("myApp").controller("gridController", ['$scope', '$http', 'uiGrid
     }, function (error) {
         Helper.showToastMessage(error);
     });
+
+    $scope.getSelectedRows = function () {
+        return $scope.gridApi.selection.getSelectedRows();
+    }
+
+    $scope.logOutput = function () {
+        $log.log($scope.myName);
+    }
 }]);

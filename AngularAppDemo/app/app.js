@@ -1,5 +1,3 @@
-﻿angular.module("myApp", ['ui.grid', 'ui.grid.selection']);
-
-
+﻿angular.module("myApp", ['ui.grid', 'ui.grid.selection', 'myGrid']);
 
 

@@ -40,3 +40,14 @@ angular.module("myApp").directive('grid', function () {
   },
   to delete old bundle files.
 
+
+5) Unit Test
+npm install -g karma --save-dev
+
+npm install -g phantomjs --save-dev
+
+npm install karma-jasmine jasmine-core --save-dev
+
+npm install angular-mocks --save-dev
+
+npm install karma-chrome-launcher --save-dev

@@ -74,8 +74,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="karma.conf.js" />
     <Content Include="packages.config" />
     <Content Include="package.json" />
+    <Content Include="SpecRunner.html" />
+    <Content Include="tests\app.test.js" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -97,6 +100,8 @@
     <Content Include="Content\site.css" />
     <Content Include="Index.html" />
     <Content Include="index.js" />
+    <Content Include="tests\gridController.test.js" />
+    <Content Include="tests\services.test.js" />
     <Content Include="views\Forms.html" />
     <Content Include="Web.config" />
     <Content Include="webpack.config.js" />

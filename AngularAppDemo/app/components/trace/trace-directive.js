@@ -3,7 +3,7 @@ angular.module("myApp").directive('trace', function () {
 
     return {
         restrict  : 'E',
-        scope : true,
+        scope: true,
         templateUrl: templateUrl
     };
 });

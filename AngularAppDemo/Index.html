@@ -1,21 +1,19 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 
 <head>
     <title></title>
 	<meta charset="utf-8" />
-    <script src="vendor.bundle.js"></script>
-    <script src="app.bundle.js"></script>
-    <!--<link href="node_modules/angular-ui-grid/ui-grid.css" rel="stylesheet" />-->
-
+    <script src="dist/vendor.bundle.js"></script>
+    <script src="dist/app.bundle.js"></script>
 </head>
 <body>
-    <div ng-app="myApp" ng-controller="gridController">
+    <div  ng-controller="gridController">
         <grid></grid>
 
 
-        <trace debugData="Hello World "></trace>
-        <!--<pre>data : {{ gridApi.selection.getSelectedRows() |json}}</pre></br></br>-->
+        <!--<trace></trace>-->
+        <pre>data : {{ getSelectedRows() |json}}</pre></br></br>
     </div>
 
     <div id="snackbar">Error...</div>

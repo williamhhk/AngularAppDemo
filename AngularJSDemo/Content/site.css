@@ -1,0 +1,11 @@
+﻿.btn-primary-spacing 
+{
+margin-right: 5px;
+margin-bottom: 5px !important;
+}
+
+.custom-button {
+    width: 200px !important;
+    margin-right: 5px;
+    margin-bottom: 5px !important;
+}

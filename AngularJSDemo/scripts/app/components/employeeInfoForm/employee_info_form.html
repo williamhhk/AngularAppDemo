@@ -1,0 +1,97 @@
+﻿<form class="form-horizontal" name="employeeForm" novalidate>
+    {{ctrl.employeedata}}
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-md-2" for="lblTitle">Title :</label>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="idTitle" name="Title" placeholder="Title..." ng-model="ctrl.employee.Title" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="control-label col-md-2" for="lblFirstName">First Name :</label>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="idFirstName" name="FirstName" placeholder="First Name..." ng-model="ctrl.employee.FirstName" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="control-label col-md-2" for="lblMiddleName">Middle Name :</label>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="idMiddleName" name="MiddleName" placeholder="Middle Name..." ng-model="ctrl.employee.MiddleName" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="control-label col-md-2" for="lblJobTitle">Job Title :</label>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="idJobTitle" name="JobTitle" placeholder="Job Title..." ng-model="ctrl.employee.JobTitle" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="control-label col-md-2" for="lblJobTitle">Phone :</label>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="idPhone" name="Phone" placeholder="Phone..." ng-model="ctrl.employee.PhoneNumber" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="control-label col-md-2" for="lblPhoneType">Phone Type :</label>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <select id="idPhoneType"
+                                name="PhoneType"
+                                ng-model="ctrl.employee.PhoneNumberType"
+                                class="form-control"
+                                ng-required="required">
+                            <!--ng-options="(item?'Mobile':'Land') for item in [true, false]">-->
+                            <option ng-selected="ctrl.employee.PhoneType == option.id" ng-repeat="option in ctrl.PhoneType" value="{{option.id}}">{{option.name}}</option>
+                        </select>
+                    </div>
+                </div>
+              </div>
+            <div class="row">
+                <label class="control-label col-md-2" for="lblEmail">Email :</label>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input type="email" class="form-control" id="idemail" name="email" placeholder="email..." ng-model="ctrl.employee.EmailAddress" required>
+                    </div>
+                </div>
+                <div role="alert">
+                    <span class="error" ng-show="employeeForm.email.$error.required">
+                        Required!
+                    </span>
+                    <span class="error" ng-show="employeeForm.email.$error.email">
+                        Not valid email!
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <label class="control-label col-md-2" for="lblCity">City :</label>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="idCity" name="city" placeholder="city..." ng-model="ctrl.employee.City" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="control-label col-md-2" for="lblCity">City :</label>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="idState" name="State" placeholder="State..." ng-model="ctrl.employee.StateProvinceName" required>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <button type="submit" class="btn btn-primary col-lg-2 custom-button" ng-click="ctrl.SaveForm()" ng-disabled="employeeForm.$invalid">Save</button>
+            </div>
+        </div>
+</form>

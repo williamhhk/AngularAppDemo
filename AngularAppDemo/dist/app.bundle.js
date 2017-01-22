@@ -9,9 +9,9 @@ webpackJsonp([0],[
 	__webpack_require__(/*! ./content/site.css */ 9);
 	__webpack_require__(/*! ./app/app.js */ 11)
 	__webpack_require__(/*! ./app/services.js */ 12)
-	__webpack_require__(/*! ./app/gridController.js */ 13)
-	__webpack_require__(/*! ./app/components/grid/grid-directive.js */ 15)
-	__webpack_require__(/*! ./app/components/trace/trace-directive.js */ 17)
+	__webpack_require__(/*! ./app/rootController.js */ 13)
+	__webpack_require__(/*! ./app/components/grid/grid-directive.js */ 14)
+	__webpack_require__(/*! ./app/components/trace/trace-directive.js */ 16)
 
 
 /***/ },
@@ -463,8 +463,13 @@ webpackJsonp([0],[
   \********************/
 /***/ function(module, exports) {
 
-	angular.module("myApp", ['ui.grid', 'ui.grid.selection', 'myGrid']);
+	//  No global left behind
+	(function () {
+	    'use strict';
 	
+	    // Setter angular.module("app", []);  getter angular.module("app") without []
+	    angular.module("gridApp", ['ui.grid', 'ui.grid.selection']); 
+	})();
 	
 
 
@@ -475,225 +480,202 @@ webpackJsonp([0],[
   \*************************/
 /***/ function(module, exports) {
 
-	angular.module("myFactory", [])
-	    .factory('azureDBService', function ($http) {
-	    return {
-	        getAllEmployees: function () {
-	            return $http({
-	                method: 'GET',
-	                url: 'http://web-api-group01.azurewebsites.net/api/aw/v1/employees',
-	            });
-	        },
-	        getEmployeeById: function (param) {
-	            return $http({
-	                method: 'GET',
-	                url: 'http://web-api-group01.azurewebsites.net/api/aw/v1/employees/' + param.id,
-	            });
-	        },
+	(function (gridApp) {
+	    'use strict';
+	    //angular
+	    //    .module("myApp")
+	    gridApp
+	        .factory('CRUDService', CRUDService);
 	
-	        deleteEmployee: function (index) {
-	            return $http({
-	                method: 'DELETE',
-	                url: 'http://web-api-group01.azurewebsites.net/api/aw/v1/employees',
-	                data: { 'index': index }
-	            });
-	        }
-	    };
-	});
+	    CRUDService.$inject = ['$http'];
+	    function CRUDService($http) {
+	            return {
+	                getAllEmployees: function () {
+	                    return $http({
+	                        method: 'GET',
+	                        url: 'http://web-api-group01.azurewebsites.net/api/aw/v1/employees',
+	                    });
+	                },
+	                getEmployeeById: function (param) {
+	                    return $http({
+	                        method: 'GET',
+	                        url: 'http://web-api-group01.azurewebsites.net/api/aw/v1/employees/' + param.id,
+	                    });
+	                },
 	
-	//angular.module("myApp").factory('queryService', function () {
-	//    var fakeData = [
-	//          {
-	//              "id": 0,
-	//              "name": "Mayer Leonard",
-	//              "city": "Kapowsin",
-	//              "state": "Hawaii",
-	//              "country": "United Kingdom",
-	//              "company": "Ovolo",
-	//              "favoriteNumber": 7
-	//          },
-	//          {
-	//              "id": 1,
-	//              "name": "Koch Becker",
-	//              "city": "Johnsonburg",
-	//              "state": "New Jersey",
-	//              "country": "Madagascar",
-	//              "company": "Eventage",
-	//              "favoriteNumber": 2
-	//          },
-	//          {
-	//              "id": 2,
-	//              "name": "Lowery Hopkins",
-	//              "city": "Blanco",
-	//              "state": "Arizona",
-	//              "country": "Ukraine",
-	//              "company": "Comtext",
-	//              "favoriteNumber": 3
-	//          }
-	//    ];
+	                deleteEmployee: function (index) {
+	                    return $http({
+	                        method: 'DELETE',
+	                        url: 'http://web-api-group01.azurewebsites.net/api/aw/v1/employees',
+	                        data: { 'index': index }
+	                    });
+	                }
+	            };
+	    }
+	})(angular.module('gridApp'));
 	
-	//    var queryService = {};
-	//    queryService.getEmployees = function () {
-	//        return fakeData;
-	//    }
-	//    return queryService;
-	//});
-	
-	//angular.module("myApp").factory('PlayerLocalApi', function () {
-	//    var data = [{ "Id": "1", "Name": "Dhananjay Kumar", "Age": 33.0 }, { "Id": "2", "Name": "Sachin Tendulkar", "Age": 22.0 }, { "Id": "6", "Name": "rahul dravid", "Age": 60.0 }];
-	//    var PlayerLocalApi = {};
-	//    PlayerLocalApi.getPlayers = function () {
-	//        return data;
-	//    }
-	//    return PlayerLocalApi;
-	//});
+
 
 /***/ },
 /* 13 */
 /*!*******************************!*\
-  !*** ./app/gridController.js ***!
+  !*** ./app/rootController.js ***!
   \*******************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	var Helper = __webpack_require__(/*! ./helper.js */ 14)
+	// storage.js
+	(function (gridApp) {
 	
-	angular.module("myGrid", ['myFactory'])
-	    .controller("gridController", ['$scope', '$http', 'uiGridConstants', 'azureDBService', function ($scope, $http, uiGridConstants, azureDBService) {
-	    $scope.mySelected = [];
-	    $scope.myName = "WilliamHan";
-	    $scope.gridOptions = {
-	        multiSelect: true,
-	        enableSelectAll: true,
-	        showGridFooter: true,
-	        showColumnFooter: true,
-	        enableFiltering: true,
-	        onRegisterApi: function (gridApi) {
-	            $scope.gridApi = gridApi;
-	            gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-	                $scope.SelectedRow = row; // $scope.gridOptions.data.indexOf(row.entity);
-	            });
-	        },
-	        columnDefs: [
-	            { field: 'BusinessEntityID', width: '13%', enableFiltering: true },
-	            { field: 'Title', width: '13%', enableFiltering: true },
-	            { field: 'FirstName', width: '13%', enableFiltering: true },
-	            { field: 'MiddleName', width: '13%', enableFiltering: true },
-	            { field: 'LastName', width: '13%', enableFiltering: true },
-	            { field: 'Suffix', width: '13%', enableFiltering: true },
-	            { field: 'JobTitle', width: '13%', enableFiltering: true },
-	            { field: 'PhoneNumber', width: '13%', enableFiltering: true },
-	            { field: 'PhoneNumberType', width: '13%', enableFiltering: true },
-	            { field: 'EmailAddress', width: '13%', enableFiltering: true },
-	            { field: 'EmailPromotion', width: '13%', enableFiltering: true },
-	            { field: 'AddressLine1', width: '13%', enableFiltering: true },
-	            { field: 'AddressLine2', width: '13%', enableFiltering: true },
-	            { field: 'City', width: '13%', enableFiltering: true },
-	            { field: 'StateProvinceName', width: '13%', enableFiltering: true },
-	            { field: 'PostalCode', width: '13%', enableFiltering: true },
-	            { field: 'CountryRegionName', width: '13%', enableFiltering: true },
-	            { field: 'AdditionalContactInfo', width: '13%', enableFiltering: true },
-	        ],
-	    };
+	    //  Replace it with IIFE
+	    //(function () {
+	        //angular
+	    //.module("myApp")
 	
-	    azureDBService.getAllEmployees()
-	    .then(function (result) {
-	        //console.log(result.data);
-	        $scope.gridOptions.data = result.data;
-	        Helper.showToastMessage(result);
-	    }, function (error) {
-	        Helper.showToastMessage(error);
-	    });
+	    gridApp
+	        .controller("rootController", rootController);
+	    
+	    rootController.$inject = ['$scope', 'CRUDService'];
 	
-	    $scope.getSelectedRows = function () {
-	        return $scope.gridApi.selection.getSelectedRows();
+	    function rootController($scope, CRUDService) {
+	        var gridVm = this;
+	        gridVm.gridApi = {};
+	        gridVm.Reload = Reload;
+	        gridVm.DisplayGrid = DisplayGrid;
+	        //gridVm.gridOptions = {};
+	
+	        // CRUD functions
+	        gridVm.Delete = Delete;
+	
+	        DisplayGrid();
+	        Reload();
+	        
+	        function DisplayGrid() {
+	            gridVm.gridOptions = {
+	                multiSelect: true,
+	                enableSelectAll: true,
+	                showGridFooter: true,
+	                showColumnFooter: true,
+	                enableFiltering: true,
+	                onRegisterApi: function (gridApi) {
+	                    gridVm.gridApi = gridApi;
+	                    console.log(gridVm.gridApi);
+	                },
+	                columnDefs: [
+	                    { field: 'BusinessEntityID', width: '13%', enableFiltering: true },
+	                    { field: 'Title', width: '13%', enableFiltering: true },
+	                    { field: 'FirstName', width: '13%', enableFiltering: true },
+	                    { field: 'MiddleName', width: '13%', enableFiltering: true },
+	                    { field: 'LastName', width: '13%', enableFiltering: true },
+	                    { field: 'Suffix', width: '13%', enableFiltering: true },
+	                    { field: 'JobTitle', width: '13%', enableFiltering: true },
+	                    { field: 'PhoneNumber', width: '13%', enableFiltering: true },
+	                    { field: 'PhoneNumberType', width: '13%', enableFiltering: true },
+	                    { field: 'EmailAddress', width: '13%', enableFiltering: true },
+	                    { field: 'EmailPromotion', width: '13%', enableFiltering: true },
+	                    { field: 'AddressLine1', width: '13%', enableFiltering: true },
+	                    { field: 'AddressLine2', width: '13%', enableFiltering: true },
+	                    { field: 'City', width: '13%', enableFiltering: true },
+	                    { field: 'StateProvinceName', width: '13%', enableFiltering: true },
+	                    { field: 'PostalCode', width: '13%', enableFiltering: true },
+	                    { field: 'CountryRegionName', width: '13%', enableFiltering: true },
+	                    { field: 'AdditionalContactInfo', width: '13%', enableFiltering: true },
+	                ]
+	            };
+	        }
+	
+	        function Delete() {
+	            gridVm.gridApi.selection.getSelectedRows().forEach(function (item) {
+	                CRUDService.Delete(item.BusinessEntityID).then(function success(result) {
+	                    gridVm.gridOptions.data.splice(gridVm.gridOptions.data.indexOf(item), 1);
+	                    gridVm.gridApi.selection.clearSelectedRows();
+	                }, function error(result) {
+	                    console.log("Error >>" + result);
+	                });
+	            })
+	        }
+	
+	        function Reload() {
+	            CRUDService.getAllEmployees()
+	                .then(function (result) {
+	                    gridVm.gridOptions.data = result.data;
+	                }, function (error) {
+	                    //Helper.showToastMessage(error);
+	                });
+	        }
 	    }
 	
-	    $scope.logOutput = function () {
-	        $log.log($scope.myName);
-	    }
-	}]);
+	//})();
+	})(angular.module('gridApp'));
+
 
 /***/ },
 /* 14 */
-/*!***********************!*\
-  !*** ./app/helper.js ***!
-  \***********************/
-/***/ function(module, exports) {
-
-	module.exports = {
-	    showToastMessage : function (error) {
-	        var x = document.getElementById("snackbar")
-	        x.className = "show";
-	        x.innerHTML = "Status Code : " + error.status + " Status Text : " + error.statusText;
-	        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-	    },
-	    // Other methods goes here
-	}
-	
-	
-	//http://stackoverflow.com/questions/16631064/declare-multiple-module-exports-in-node-js
-	//http://stackoverflow.com/questions/7137397/module-exports-vs-exports-in-node-js/26451885#26451885
-
-/***/ },
-/* 15 */
 /*!***********************************************!*\
   !*** ./app/components/grid/grid-directive.js ***!
   \***********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var templateUrl = __webpack_require__(/*! ngtemplate!html!./grid.html */ 16);
-	angular.module("myApp").directive('grid', function () {
-	    return {
-	        scope: true,
-	        templateUrl: templateUrl,
-	        //template: '<div ui-grid="gridOptions" ui-grid-selection class="grid"></div>'
-	    };
-	});
+	var templateUrl = __webpack_require__(/*! ngtemplate!html!./grid.html */ 15);
+	(function (gridApp) {
+	    'use strict';
+	    gridApp
+	    .directive('grid', function () {
+	        return {
+	            scope: true,
+	            controller :'rootController',
+	            controllerAs :'ctrl',
+	            templateUrl: templateUrl,
+	        };
+	    });
 	
-	
+	})(angular.module('gridApp'));
 
 
 /***/ },
-/* 16 */
+/* 15 */
 /*!*****************************************************************************!*\
   !*** ./~/ngtemplate-loader!./~/html-loader!./app/components/grid/grid.html ***!
   \*****************************************************************************/
 /***/ function(module, exports) {
 
-	var path = 'F:/csharp/AngularAppDemo/AngularAppDemo/app/components/grid/grid.html';
-	var html = "<div ui-grid=\"gridOptions\" ui-grid-selection class=\"grid\"></div>";
+	var path = 'F:/csharp/javascript/AngularAppDemo/AngularAppDemo/app/components/grid/grid.html';
+	var html = "<div ui-grid=\"ctrl.gridOptions\" ui-grid-selection class=\"grid\"></div>";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
 /***/ },
-/* 17 */
+/* 16 */
 /*!*************************************************!*\
   !*** ./app/components/trace/trace-directive.js ***!
   \*************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var templateUrl = __webpack_require__(/*! ngtemplate!html!./trace.html */ 18);
-	angular.module("myApp").directive('trace', function () {
+	var templateUrl = __webpack_require__(/*! ngtemplate!html!./trace.html */ 17);
+	(function (gridApp) {
+	    gridApp
+	        .directive('trace', function () {
+	        return {
+	            scope: true,
+	            controller: 'rootController',
+	            controllerAs: 'ctrl',
+	            bindToController: {
+	                selectedRows: '='
+	            },
+	            templateUrl: templateUrl
+	        };
+	    });
 	
-	    return {
-	        restrict  : 'E',
-	        scope: true,
-	        templateUrl: templateUrl
-	    };
-	});
-	
-	
-
+	})(angular.module('gridApp'));
 
 /***/ },
-/* 18 */
+/* 17 */
 /*!*******************************************************************************!*\
   !*** ./~/ngtemplate-loader!./~/html-loader!./app/components/trace/trace.html ***!
   \*******************************************************************************/
 /***/ function(module, exports) {
 
-	var path = 'F:/csharp/AngularAppDemo/AngularAppDemo/app/components/trace/trace.html';
-	var html = "<pre>data : {{ gridApi.selection.getSelectedRows() | json}}</pre>\r\n\r\n<br />\r\n<br />\r\n";
+	var path = 'F:/csharp/javascript/AngularAppDemo/AngularAppDemo/app/components/trace/trace.html';
+	var html = "<pre>data : {{ selectedRows  | json}}</pre>\r\n";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 

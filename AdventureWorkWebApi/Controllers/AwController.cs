@@ -27,5 +27,84 @@ namespace AdventureWorkWebApi.Controllers
             var employee = _ctx.vEmployees.Where(i => i.BusinessEntityID == id);
             return Ok(employee);
         }
+
+        [Route("employees/{id}")]
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
+        {
+            try
+            {
+                var recordToDelete = _ctx.vEmployees.Where(i => i.BusinessEntityID == id).Single();
+                _ctx.vEmployees.Remove(recordToDelete);
+                _ctx.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
+
+        /*
+        Use this 
+                $http.post('http://localhost:50578/api/aw/v1/employees', data);
+
+        Or This with '='
+
+            $http({
+            method: 'POST',
+                    url: 'http://localhost:50578/api/aw/v1/employees',
+                    data: '=' + JSON.stringify(data),
+                });
+
+            or 
+
+            $http({
+            method: 'POST',
+                    url: 'http://localhost:50578/api/aw/v1/employees',
+                    data: { field1 : data1, field2 : data2 }
+                });
+
+        No auto serialization by ASP.NET
+        public IHttpActionResult Create(HttpRequestMessage employee)
+        {
+            vEmployee recordToAdd = new vEmployee();
+            var data = employee.Content.ReadAsStringAsync().Result;
+
+        */
+        [Route("employees")]
+        [HttpPost]
+        public IHttpActionResult Create(vEmployee employee)
+        {
+            vEmployee recordToAdd = employee;
+            //var data = employee.Content.ReadAsStringAsync().Result;
+            try
+            {
+                _ctx.vEmployees.Add(recordToAdd);
+                _ctx.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            return Ok(recordToAdd);
+        }
+
+        [Route("employees")]
+        [HttpPut]
+        public IHttpActionResult Update(vEmployee employee)
+        {
+            try
+            {
+                var recordToUpdate = _ctx.vEmployees.Find(employee.BusinessEntityID);
+                _ctx.Entry(recordToUpdate).CurrentValues.SetValues(employee);
+                _ctx.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
     }
 }

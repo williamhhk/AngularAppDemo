@@ -3,6 +3,10 @@
     'use strict';
 
     // Setter angular.module("app", []);  getter angular.module("app") without []
-    angular.module("gridApp", ['ui.grid', 'ui.grid.selection']); 
+    angular.module("myApp",
+        [
+            'ui.grid',
+            'ui.grid.selection',
+            'ui.grid.exporter',
+        ]);
 })();
-

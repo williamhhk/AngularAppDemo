@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html ng-app="myApp">
+<html ng-app="gridApp">
 
 <head>
     <title></title>
@@ -8,14 +8,14 @@
     <script src="dist/app.bundle.js"></script>
 </head>
 <body>
-    <div  ng-controller="gridController">
+    <div  ng-controller="rootController as root">
         <grid></grid>
-
-
-        <!--<trace></trace>-->
-        <pre>data : {{ getSelectedRows() |json}}</pre></br></br>
+        <button type="submit"  ng-click="root.Reload()" >Reload</button>
+        <!--<trace
+            selectedRows={{ gridApi.selection.getSelectedRows()}}
+        > </trace>-->
+        <!--<pre>data : {{ root.getSelectedRows()  | json}}</pre>-->
     </div>
-
-    <div id="snackbar">Error...</div>
+    <div id="snackbar"></div>
 </body>
 </html>

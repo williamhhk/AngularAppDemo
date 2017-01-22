@@ -17,7 +17,8 @@ namespace AdventureWorkWebApi
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //  use second parameters for the schemaName
-            modelBuilder.Entity<vEmployee>().ToTable("vEmployee", schemaName: "HumanResources");
+            //modelBuilder.Entity<vEmployee>().ToTable("vEmployees", schemaName: "HumanResources");
+            modelBuilder.Entity<vEmployee>().ToTable("vEmployees", schemaName: "dbo");
         }
 
         public virtual DbSet<vEmployee> vEmployees { get; set; }

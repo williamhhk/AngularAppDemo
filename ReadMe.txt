@@ -51,3 +51,54 @@ npm install karma-jasmine jasmine-core --save-dev
 npm install angular-mocks --save-dev
 
 npm install karma-chrome-launcher --save-dev
+
+
+
+
+USE [AdventureWorks2012]
+GO
+
+DECLARE @counter int
+SET @counter = 1
+WHILE @counter < 1000 BEGIN
+	INSERT INTO [dbo].[vEmployees]
+			   ([Title]
+			   ,[FirstName]
+			   ,[MiddleName]
+			   ,[LastName]
+			   ,[Suffix]
+			   ,[JobTitle]
+			   ,[PhoneNumber]
+			   ,[PhoneNumberType]
+			   ,[EmailAddress]
+			   ,[EmailPromotion]
+			   ,[AddressLine1]
+			   ,[AddressLine2]
+			   ,[City]
+			   ,[StateProvinceName]
+			   ,[PostalCode]
+			   ,[CountryRegionName]
+			   ,[AdditionalContactInfo])
+		 VALUES
+			   ('Mr'
+			   ,'Test' + CAST(@counter AS varchar(2))
+			   ,''
+			   ,'Test'
+			   ,''
+			   ,'Engineer'
+			   ,'480-12345'
+			   ,'Mobile'
+			   ,'helloworld@helloworld.com'
+			   ,''
+			   ,''
+			   ,''
+			   ,'Phoenix'
+			   ,'Az'
+			   ,'85076'
+			   ,'USA'
+			   ,'None')
+
+     SET @counter = @counter + 1
+END
+GO
+

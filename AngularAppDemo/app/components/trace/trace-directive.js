@@ -1,11 +1,16 @@
 ﻿var templateUrl = require('ngtemplate!html!./trace.html');
-angular.module("myApp").directive('trace', function () {
+(function (gridApp) {
+    gridApp
+        .directive('trace', function () {
+        return {
+            scope: true,
+            controller: 'rootController',
+            controllerAs: 'ctrl',
+            bindToController: {
+                selectedRows: '='
+            },
+            templateUrl: templateUrl
+        };
+    });
 
-    return {
-        restrict  : 'E',
-        scope: true,
-        templateUrl: templateUrl
-    };
-});
-
-
+})(angular.module('gridApp'));

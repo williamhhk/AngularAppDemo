@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="dist/vendor.bundle.js"></script>
+    <script src="dist/app.bundle.js"></script>
+</head>
+<body ng-controller="rootController as root">
+    <div ui-grid="root.gridOptions" ui-grid-selection ui-grid-exporter class="grid"></div>
+
+    <div class="btn-group-justified">
+        <button type="submit" class="btn btn-primary col-lg-2 custom-button" ng-click="root.Reload()">Reload</button>
+        <button type="submit" class="btn btn-primary col-lg-2 custom-button" ng-click="root.Delete()">Delete</button>
+        <button type="submit" class="btn btn-primary col-lg-2 custom-button" ng-click="root.Export()">Export</button>
+        <button type="submit" class="btn btn-primary col-lg-2 custom-button" ng-click="root.Update()">Export</button>
+        <button type="submit" class="btn btn-primary col-lg-2 custom-button" ng-click="root.GenerateRows()">Generate Records</button>
+
+        create drop down menu for all these actions...
+
+    </div>
+
+    <employee-info-form 
+    reloadfunction="root.Reload()"
+    employeedata="root.EmployeeData"
+    >
+    </employee-info-form>
+
+
+    <br />
+    <pre>data : {{  root.EmployeeData  | json}}</pre>
+    <!--<pre>data : {{  root.gridApi.selection.getSelectedRows()  | json}}</pre>-->
+
+</body>
+</html>

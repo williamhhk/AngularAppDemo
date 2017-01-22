@@ -12,16 +12,19 @@
             controller: 'employeeInfoFormCtrl',
             controllerAs: 'ctrl',
             bindToController: {
-                employeedata: '=',  // Case matter here
-                reloadfunction : '&'
+                employee: '=',  // Case matter here
+                reloadfunction: '&',
+                gridapi: '=',
             }
         };
     }
 
     gridApp.controller("employeeInfoFormCtrl", employeeInfoFormCtrl);
-    employeeInfoFormCtrl.$inject = ['$scope','CRUDService'];
+    employeeInfoFormCtrl.$inject = ['$scope','CRUDService' ];
     function employeeInfoFormCtrl($scope, CRUDService) {
         var employeeVM = this;
+        employeeVM.CurrentAction = "";
+        employeeVM.FormAction = FormAction;
         employeeVM.SaveForm = SaveForm;
         employeeVM.employee = {
             "Country" : 'USA'
@@ -39,13 +42,50 @@
             CRUDService
                 .Create(employeeVM.employee)
                 .then(function (result) {
-                    employeeVM.employeedata = employeeVM.employee;  // data back to Root.
+                    //employeeVM.employeedata = employeeVM.employee;  // data back to Root.
                     employeeVM.reloadfunction();
                     console.log("sucessful >>" + result.data);
                 }, function (error) {
                     console.log("Error >> " + error);
                 })
         }
+
+        function Update() {
+            //employeeVM.gridapi.selection.getSelectedRows().forEach(function (item) {
+            //    console.log(" >>>>>>>>>>>>>>> ");
+            //    console.log(item);
+            //    employeeVM.employee = item;
+            //})
+
+
+            //dbService.saveEmployeeData($scope.metaData);
+            CRUDService
+                .Update(employeeVM.employee)
+                .then(function (result) {
+                    //employeeVM.employeedata = employeeVM.employee;  // data back to Root.
+                    employeeVM.reloadfunction();
+                    console.log("sucessful >>" + result.data);
+                }, function (error) {
+                    console.log("Error >> " + error);
+                })
+        }
+
+        function FormAction() {
+            employeeVM.CurrentAction = employeeVM.selectedAction;
+            switch (employeeVM.selectedAction)
+            {
+                case "new":
+                    break;
+                case "update":
+                    employeeVM.gridapi.selection.setMultiSelect(false);
+                    employeeVM.gridapi.selection.clearSelectedRows();                 
+                    break;
+                case "bulk":
+                    employeeVM.gridapi.selection.setMultiSelect(true);
+                    break;
+
+            }
+            }
     }
 
 })(angular.module('myApp'));

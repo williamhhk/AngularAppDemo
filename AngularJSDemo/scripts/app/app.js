@@ -8,5 +8,7 @@
             'ui.grid',
             'ui.grid.selection',
             'ui.grid.exporter',
+            'ui.grid.edit',
+            'ui.grid.rowEdit',
         ]);
 })();

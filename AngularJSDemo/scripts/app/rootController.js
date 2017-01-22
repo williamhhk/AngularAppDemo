@@ -3,15 +3,6 @@
     rootController.$inject = ['$scope', 'CRUDService'];
     function rootController($scope, CRUDService) {
         var gridVm = this;
-
-
-        this.contestants = [
-          { firstName: 'Rachel', lastName: 'Washington' },
-          { firstName: 'Joshua', lastName: 'Foster' },
-          { firstName: 'Samuel', lastName: 'Walker' },
-          { firstName: 'Phyllis', lastName: 'Reynolds' }
-        ];
-
         this.EmployeeData = {};
 
         gridVm.gridApi = {};
@@ -20,7 +11,7 @@
         //  CRUD
         gridVm.Reload = Reload;
         gridVm.Delete = Delete;
-        gridVm.Update = Update;
+        //gridVm.Update = Update;
         gridVm.Create = Create;
         gridVm.GenerateRows = GenerateRows;
 
@@ -29,6 +20,8 @@
 
         // Error Handling
         gridVm.message = "";
+
+        gridVm.SelectedRow = {};
 
 
         DisplayGrid();
@@ -64,18 +57,37 @@
             }
 
         }
-
+        //  Inline Edit 
+        // http://embed.plnkr.co/VO6F3vlOOwaudfi3RSVA/
         function DisplayGrid() {
             gridVm.gridOptions = {
                 enableFiltering: true,
                 enableColumnResizing: true,
                 showGridFooter: true,
-                onRegisterApi: function (gridApi) {
-                    gridVm.gridApi = gridApi;
-                }
+                //onRegisterApi: function (gridApi) {
+                //    gridVm.gridApi = gridApi;
+                //},
+                columnDefs : [
+                      { name: 'Edit', width: 90, cellTemplate: '<button ng-click="">Edit</button>' , enableFiltering : false},
+                      { field: 'FirstName', displayName: 'First Name', width: 90 },
+                      { field: 'Last', displayName: 'Last Name', width: 90 },
+                      { field: 'JobTitle', displayName: 'Job Title', width: 90 },
+                      { field: 'EmailAddress', displayName: 'Email', width: 90 },
+                      { field: 'City', displayName: 'City', width: 90 },
+                      { field: 'CountryRegionName', displayName: 'Country', width: 90 },
+                ],
             };
             Reload();
         }
+
+        gridVm.gridOptions.onRegisterApi = function (gridApi) {
+            gridVm.gridApi = gridApi;
+            gridVm.gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+                console.log(row.entity);
+                gridVm.SelectedRow = row.entity;
+            });
+        };
+
 
         function Reload() {
             CRUDService
@@ -112,23 +124,23 @@
             })
         }
 
-        function Update() {
-            var data = angular.copy(gridVm.EmployeeData);
-            gridVm.gridApi.selection.getSelectedRows().forEach(function (item) {
-                var index = gridVm.gridOptions.data.indexOf(item);
-                var mergedData = Helper.Merge(angular.copy(item), data);
-                CRUDService
-                    .Update(Helper.Merge(angular.copy(item), data))
-                    .then(function (result) {
-                        gridVm.message = "";
-                        gridVm.gridOptions.data[index] = mergedData;
+        //function Update() {
+        //    var data = angular.copy(gridVm.EmployeeData);
+        //    gridVm.gridApi.selection.getSelectedRows().forEach(function (item) {
+        //        var index = gridVm.gridOptions.data.indexOf(item);
+        //        var mergedData = Helper.Merge(angular.copy(item), data);
+        //        CRUDService
+        //            .Update(Helper.Merge(angular.copy(item), data))
+        //            .then(function (result) {
+        //                gridVm.message = "";
+        //                gridVm.gridOptions.data[index] = mergedData;
                       
-                    }, function error(result) {
-                        console.log("Error >>" + result);
-                        gridVm.message = result.data;
-                    });
-            })
-        }
+        //            }, function error(result) {
+        //                console.log("Error >>" + result);
+        //                gridVm.message = result.data;
+        //            });
+        //    })
+        //}
 
         function Create(data) {
             console.log(data);

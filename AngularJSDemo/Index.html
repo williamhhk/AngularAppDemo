@@ -10,26 +10,35 @@
 <body ng-controller="rootController as root">
     <div ui-grid="root.gridOptions" ui-grid-selection ui-grid-exporter class="grid"></div>
 
+    <!--http://www.plugolabs.com/twitter-bootstrap-button-generator-with-awesome-font/-->
+
     <div class="btn-group-justified">
-        <button type="submit" class="btn btn-primary col-lg-2 custom-button" ng-click="root.Reload()">Reload</button>
-        <button type="submit" class="btn btn-primary col-lg-2 custom-button" ng-click="root.Delete()">Delete</button>
-        <button type="submit" class="btn btn-primary col-lg-2 custom-button" ng-click="root.Export()">Export</button>
-        <button type="submit" class="btn btn-primary col-lg-2 custom-button" ng-click="root.Update()">Export</button>
-        <button type="submit" class="btn btn-primary col-lg-2 custom-button" ng-click="root.GenerateRows()">Generate Records</button>
-
-        create drop down menu for all these actions...
-
+        <button class="btn btn-primary col-lg-2 custom-button" ng-click="root.Reload()"><i class="fa fa-refresh"></i> Reload</button>
+        <button class="btn btn-danger col-lg-2 custom-button" ng-click="root.Delete()">Delete</button>
+        <button class="btn btn-primary col-lg-2 custom-button" ng-click="root.Export()">Export</button>
+        <button class="btn btn-primary col-lg-2 custom-button" ng-click="root.GenerateRows()">Generate Records</button>
     </div>
 
-    <employee-info-form 
+
+
+    <!--<employee-info-form 
     reloadfunction="root.Reload()"
     employeedata="root.EmployeeData"
+    selectedrow ="root.SelectedRow"
+    gridapi="root.gridApi"
+    >
+    </employee-info-form>-->
+
+    <employee-info-form
+    reloadfunction="root.Reload()"
+    employee="root.SelectedRow"
+    gridapi="root.gridApi"
     >
     </employee-info-form>
 
-
     <br />
     <pre>data : {{  root.EmployeeData  | json}}</pre>
+    <pre>data : {{  root.SelectedRow  | json}}</pre>
     <!--<pre>data : {{  root.gridApi.selection.getSelectedRows()  | json}}</pre>-->
 
 </body>

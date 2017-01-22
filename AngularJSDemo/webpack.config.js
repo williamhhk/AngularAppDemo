@@ -12,7 +12,7 @@ module.exports = {
         vendor: [
             'angular',
             'angular-ui-grid',
-            'jquery'
+            'jquery',
         ]
     },
     output: {
@@ -20,12 +20,29 @@ module.exports = {
         filename: "app.bundle.js"
     },
     module: {
+        //loaders: [
+        //    { test: /\.css$/, loader: 'style-loader!css-loader' },
+        //    {
+        //        test: /\.svg($|\?)|\.png($|\?)|\.jpe($|\?)|\.jpeg($|\?)|\.gif($|\?)/,
+        //        loader: 'url-loader'
+        //    },
+        //    {
+        //        test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
+        //        loader: 'url-loader'
+        //    }
+        //]
 
         loaders: [
             { test: /\.css$/, loader: 'style-loader!css-loader' },
-            { test: /\.(svg|png|jpe?g|gif)(\?\S*)?$/, loader: 'url?limit=100000&name=img/[name].[ext]' },
-            { test: /\.(eot|woff|woff2|ttf)(\?\S*)?$/, loader: 'url?limit=100000&name=fonts/[name].[ext]' },
-        ],
+            { test: /\.(svg|png|jpe?g|gif)(\?\S*)?$/, loader: 'url-loader' },
+            { test: /\.(eot|woff|woff2|ttf)(\?\S*)?$/, loader: 'url-loader' },
+        ]
+
+        //loaders: [
+        //    { test: /\.css$/, loader: 'style-loader!css-loader' },
+        //    { test: /\.(svg|png|jpe?g|gif)(\?\S*)?$/, loader: 'url?limit=100000&name=img/[name].[ext]' },
+        //    { test: /\.(eot|woff|woff2|ttf)(\?\S*)?$/, loader: 'url?limit=100000&name=fonts/[name].[ext]' },
+        //]
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),

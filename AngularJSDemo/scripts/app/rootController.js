@@ -1,7 +1,8 @@
 ﻿(function (gridApp) {
+
     gridApp.controller("rootController", rootController);
-    rootController.$inject = ['$scope', 'CRUDService'];
-    function rootController($scope, CRUDService) {
+    rootController.$inject = ['$scope', 'CRUDService', 'Helper'];
+    function rootController($scope, CRUDService, Helper) {
         var gridVm = this;
         this.EmployeeData = {};
 
@@ -11,8 +12,9 @@
         //  CRUD
         gridVm.Reload = Reload;
         gridVm.Delete = Delete;
-        //gridVm.Update = Update;
+        gridVm.Update = Update;
         gridVm.Create = Create;
+        //gridVm.Merge = Merge;
         gridVm.GenerateRows = GenerateRows;
 
         //  Others
@@ -20,10 +22,7 @@
 
         // Error Handling
         gridVm.message = "";
-
         gridVm.SelectedRow = {};
-
-
         DisplayGrid();
 
         function GenerateRows() {
@@ -64,9 +63,6 @@
                 enableFiltering: true,
                 enableColumnResizing: true,
                 showGridFooter: true,
-                //onRegisterApi: function (gridApi) {
-                //    gridVm.gridApi = gridApi;
-                //},
                 columnDefs : [
                       { name: 'Edit', width: 90, cellTemplate: '<button ng-click="">Edit</button>' , enableFiltering : false},
                       { field: 'FirstName', displayName: 'First Name', width: 90 },
@@ -83,11 +79,10 @@
         gridVm.gridOptions.onRegisterApi = function (gridApi) {
             gridVm.gridApi = gridApi;
             gridVm.gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-                console.log(row.entity);
-                gridVm.SelectedRow = row.entity;
+                gridVm.SelectedRow = angular.copy(row.entity);
+                delete gridVm.SelectedRow.BusinessEntityID;
             });
         };
-
 
         function Reload() {
             CRUDService
@@ -124,24 +119,6 @@
             })
         }
 
-        //function Update() {
-        //    var data = angular.copy(gridVm.EmployeeData);
-        //    gridVm.gridApi.selection.getSelectedRows().forEach(function (item) {
-        //        var index = gridVm.gridOptions.data.indexOf(item);
-        //        var mergedData = Helper.Merge(angular.copy(item), data);
-        //        CRUDService
-        //            .Update(Helper.Merge(angular.copy(item), data))
-        //            .then(function (result) {
-        //                gridVm.message = "";
-        //                gridVm.gridOptions.data[index] = mergedData;
-                      
-        //            }, function error(result) {
-        //                console.log("Error >>" + result);
-        //                gridVm.message = result.data;
-        //            });
-        //    })
-        //}
-
         function Create(data) {
             console.log(data);
             CRUDService
@@ -154,6 +131,39 @@
                 })
         }
 
+        function Update(input) {
+            var data = angular.copy(input);           
+            gridVm.gridApi.selection.getSelectedRows().forEach(function (item) {
+                var index = gridVm.gridOptions.data.indexOf(item);
+                var mergedData = Helper.Merge(angular.copy(item), data);              
+                CRUDService
+                    .Update(mergedData)
+                    .then(function (result) {
+                        gridVm.gridOptions.data[index] = mergedData;
+                        console.log("sucessful >>" + result.data);
+                    }, function (error) {
+                        console.log("Error >> " + error);
+                })
+            })
+        }
+
+        //function Merge(target, source) {
+        //    for (var p in source) {
+        //        try {
+        //            // Property in destination object set; update its value.
+        //            if (source[p].constructor == Object) {
+        //                target[p] = MergeRecursive(target[p], source[p]);
+
+        //            } else {
+        //                target[p] = source[p];
+        //            }
+        //        } catch (e) {
+        //            // Property in destination object not set; create it and set its value.
+        //            target[p] = source[p];
+        //        }
+        //    }
+        //    return target;
+        //}
     }
 })(angular.module('myApp'));
 

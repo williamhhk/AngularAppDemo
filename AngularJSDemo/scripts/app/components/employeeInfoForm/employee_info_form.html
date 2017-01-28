@@ -6,10 +6,7 @@
                 <label class="radio-inline"><input type="radio" name="optradio" ng-model="ctrl.selectedAction" ng-change="ctrl.FormAction(value)" value="new">New</label>
                 <label class="radio-inline"><input type="radio" name="optradio" ng-model="ctrl.selectedAction" ng-change="ctrl.FormAction(value)" value="update">Update</label>
                 <label class="radio-inline"><input type="radio" name="optradio" ng-model="ctrl.selectedAction" ng-change="ctrl.FormAction(value)" value="bulk">Bulk</label>
-
             </div>
-
-
             <div class="row">
                 <label class="control-label col-md-2" for="lblTitle">Title :</label>
                 <div class="col-md-2">
@@ -101,7 +98,7 @@
 
             <div class="row">
                 <button ng-show="ctrl.selectedAction == 'new'" type="submit" class="btn btn-primary col-lg-2 custom-button" ng-click="ctrl.SaveForm()" ng-disabled="employeeForm.$invalid">Save</button>
-                <button ng-show="ctrl.selectedAction == 'bulk' || ctrl.selectedAction == 'update'" type="submit" class="btn btn-primary col-lg-2 custom-button" ng-click="ctrl.Update()" ng-disabled="employeeForm.$invalid">Update</button>
+                <button ng-show="ctrl.selectedAction == 'bulk' || ctrl.selectedAction == 'update'" type="submit" class="btn btn-primary col-lg-2 custom-button" ng-click="ctrl.Update({param : ctrl.employee})" ng-disabled="employeeForm.$invalid">Update</button>
             </div>
         </div>
 </form>

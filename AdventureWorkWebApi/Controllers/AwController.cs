@@ -96,11 +96,12 @@ namespace AdventureWorkWebApi.Controllers
         {
             try
             {
-                var recordToUpdate = _ctx.vEmployees.Find(employee.BusinessEntityID);
+               // var recordToUpdate = _ctx.vEmployees.Where(i=>i.BusinessEntityID == employee.BusinessEntityID).Single();
+                var recordToUpdate = _ctx.vEmployees.Where(i => i.BusinessEntityID == employee.BusinessEntityID).Single();
                 _ctx.Entry(recordToUpdate).CurrentValues.SetValues(employee);
                 _ctx.SaveChanges();
             }
-            catch
+            catch (Exception ex)
             {
                 return BadRequest();
             }

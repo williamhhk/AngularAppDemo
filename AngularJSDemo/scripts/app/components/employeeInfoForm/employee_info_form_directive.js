@@ -15,6 +15,7 @@
                 employee: '=',  // Case matter here
                 reloadfunction: '&',
                 gridapi: '=',
+                updatefunction : '&'
             }
         };
     }
@@ -26,9 +27,7 @@
         employeeVM.CurrentAction = "";
         employeeVM.FormAction = FormAction;
         employeeVM.SaveForm = SaveForm;
-        employeeVM.employee = {
-            "Country" : 'USA'
-        };
+        employeeVM.Update = Update;
 
         employeeVM.PhoneType = [
             { 'id': 1, 'name': 'Home' },
@@ -38,7 +37,6 @@
 
         function SaveForm() {
             console.log(employeeVM.employee);
-            //dbService.saveEmployeeData($scope.metaData);
             CRUDService
                 .Create(employeeVM.employee)
                 .then(function (result) {
@@ -50,24 +48,8 @@
                 })
         }
 
-        function Update() {
-            //employeeVM.gridapi.selection.getSelectedRows().forEach(function (item) {
-            //    console.log(" >>>>>>>>>>>>>>> ");
-            //    console.log(item);
-            //    employeeVM.employee = item;
-            //})
-
-
-            //dbService.saveEmployeeData($scope.metaData);
-            CRUDService
-                .Update(employeeVM.employee)
-                .then(function (result) {
-                    //employeeVM.employeedata = employeeVM.employee;  // data back to Root.
-                    employeeVM.reloadfunction();
-                    console.log("sucessful >>" + result.data);
-                }, function (error) {
-                    console.log("Error >> " + error);
-                })
+        function Update(data) {
+            employeeVM.updatefunction(data);
         }
 
         function FormAction() {
@@ -83,9 +65,8 @@
                 case "bulk":
                     employeeVM.gridapi.selection.setMultiSelect(true);
                     break;
-
             }
-            }
+        }
     }
 
 })(angular.module('myApp'));

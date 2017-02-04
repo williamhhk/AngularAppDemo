@@ -9,12 +9,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{426AF471-81A6-4C06-BE32-14DE9667688B}</ProjectGuid>
+    <ProjectGuid>{D8306F6E-5686-4BA9-A10C-71C8A3313724}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AngularJSDemo</RootNamespace>
-    <AssemblyName>AngularJSDemo</AssemblyName>
+    <RootNamespace>ReactJSDemo</RootNamespace>
+    <AssemblyName>ReactJSDemo</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -66,62 +66,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\site.css" />
     <Content Include="packages.config" />
-    <Content Include="package.json" />
-    <Content Include="node_modules\angular-ui-grid\CHANGELOG.md" />
-    <Content Include="node_modules\angular-ui-grid\less\animation.less" />
-    <Content Include="node_modules\angular-ui-grid\less\body.less" />
-    <Content Include="node_modules\angular-ui-grid\less\bootstrap\bootstrap.less" />
-    <Content Include="node_modules\angular-ui-grid\less\cell.less" />
-    <Content Include="node_modules\angular-ui-grid\less\cellnav\less\cellNav.less" />
-    <Content Include="node_modules\angular-ui-grid\less\edit\less\edit.less" />
-    <Content Include="node_modules\angular-ui-grid\less\elements.less" />
-    <Content Include="node_modules\angular-ui-grid\less\empty-base-layer\less\emptyBaseLayer.less" />
-    <Content Include="node_modules\angular-ui-grid\less\expandable\less\expandable.less" />
-    <Content Include="node_modules\angular-ui-grid\less\exporter\less\exporter.less" />
-    <Content Include="node_modules\angular-ui-grid\less\footer.less" />
-    <Content Include="node_modules\angular-ui-grid\less\goups.less" />
-    <Content Include="node_modules\angular-ui-grid\less\grid.less" />
-    <Content Include="node_modules\angular-ui-grid\less\grouping\less\grouping.less" />
-    <Content Include="node_modules\angular-ui-grid\less\header.less" />
-    <Content Include="node_modules\angular-ui-grid\less\icons.less" />
-    <Content Include="node_modules\angular-ui-grid\less\importer\less\importer.less" />
-    <Content Include="node_modules\angular-ui-grid\less\main.less" />
-    <Content Include="node_modules\angular-ui-grid\less\menu.less" />
-    <Content Include="node_modules\angular-ui-grid\less\move-columns\less\colMovable.less" />
-    <Content Include="node_modules\angular-ui-grid\less\pagination\less\pagination.less" />
-    <Content Include="node_modules\angular-ui-grid\less\pinning\less\pinning.less" />
-    <Content Include="node_modules\angular-ui-grid\less\resize-columns\less\column-resizer.less" />
-    <Content Include="node_modules\angular-ui-grid\less\row-edit\less\rowEdit.less" />
-    <Content Include="node_modules\angular-ui-grid\less\rtl.less" />
-    <Content Include="node_modules\angular-ui-grid\less\selection\less\selection.less" />
-    <Content Include="node_modules\angular-ui-grid\less\sorting.less" />
-    <Content Include="node_modules\angular-ui-grid\less\tree-base\less\tree-base.less" />
-    <Content Include="node_modules\angular-ui-grid\less\tree-view\less\tree-view.less" />
-    <Content Include="node_modules\angular-ui-grid\less\validate\less\validate.less" />
-    <Content Include="node_modules\angular-ui-grid\less\variables.less" />
-    <Content Include="node_modules\angular-ui-grid\node_modules\angular\angular.min.js.gzip" />
-    <Content Include="node_modules\angular-ui-grid\node_modules\angular\angular.min.js.map" />
-    <Content Include="node_modules\angular-ui-grid\node_modules\angular\bower.json" />
-    <Content Include="node_modules\angular-ui-grid\node_modules\angular\LICENSE.md" />
-    <Content Include="node_modules\angular-ui-grid\node_modules\angular\package.json" />
-    <Content Include="node_modules\angular-ui-grid\node_modules\angular\README.md" />
-    <Content Include="node_modules\angular-ui-grid\package.json" />
-    <Content Include="node_modules\angular-ui-grid\README.md" />
-    <Content Include="node_modules\angular-ui-grid\ui-grid.eot" />
-    <Content Include="node_modules\angular-ui-grid\ui-grid.ttf" />
-    <Content Include="node_modules\angular-ui-grid\ui-grid.woff" />
-    <Content Include="node_modules\angular\angular.min.js.gzip" />
-    <Content Include="node_modules\angular\angular.min.js.map" />
-    <Content Include="node_modules\angular\bower.json" />
-    <Content Include="node_modules\angular\LICENSE.md" />
-    <Content Include="node_modules\angular\package.json" />
-    <Content Include="node_modules\angular\README.md" />
-    <Content Include="dist\app.bundle.js.map" />
-    <Content Include="dist\vendor.bundle.js.map" />
-    <None Include="Properties\PublishProfiles\angularjsappdemo - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\angularjsappdemo - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -130,37 +75,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dist\app.bundle.js" />
-    <Content Include="dist\vendor.bundle.js" />
     <Content Include="Index.html" />
-    <Content Include="index.js" />
-    <Content Include="node_modules\angular-ui-grid\index.js" />
-    <Content Include="node_modules\angular-ui-grid\node_modules\angular\angular-csp.css" />
-    <Content Include="node_modules\angular-ui-grid\node_modules\angular\angular.js" />
-    <Content Include="node_modules\angular-ui-grid\node_modules\angular\angular.min.js" />
-    <Content Include="node_modules\angular-ui-grid\node_modules\angular\index.js" />
-    <Content Include="node_modules\angular-ui-grid\ui-grid.css" />
-    <Content Include="node_modules\angular-ui-grid\ui-grid.js" />
-    <Content Include="node_modules\angular-ui-grid\ui-grid.min.css" />
-    <Content Include="node_modules\angular-ui-grid\ui-grid.min.js" />
-    <Content Include="node_modules\angular-ui-grid\ui-grid.svg" />
-    <Content Include="node_modules\angular\angular-csp.css" />
-    <Content Include="node_modules\angular\angular.js" />
-    <Content Include="node_modules\angular\angular.min.js" />
-    <Content Include="node_modules\angular\index.js" />
-    <Content Include="scripts\app\app.js" />
-    <Content Include="scripts\app\components\employeeInfoForm\employee_info_form.html" />
-    <Content Include="scripts\app\components\employeeInfoForm\employee_info_form_directive.js" />
-    <Content Include="scripts\app\components\grid\grid-directive.js" />
-    <Content Include="scripts\app\rootController.js" />
-    <Content Include="scripts\app\services.js" />
     <Content Include="Web.config" />
-    <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -174,9 +94,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52492</DevelopmentServerPort>
+          <DevelopmentServerPort>53492</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52492/</IISUrl>
+          <IISUrl>http://localhost:53492/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

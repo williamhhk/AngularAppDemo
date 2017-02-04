@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,8 +13,18 @@ namespace AdventureWorkWebApi.Controllers
     [RoutePrefix("api/aw/v1")]
     public class AwController : ApiController
     {
-        private AdventureWorkEntities _ctx = new AdventureWorkEntities();
-        
+        private AdventureWorkEntities _ctx; // = new AdventureWorkEntities();
+
+        public AwController() : this (new AdventureWorkEntities())
+        {
+        }
+
+        public AwController(AdventureWorkEntities ctx)
+        {
+            _ctx = ctx;
+        }
+
+
         [Route("employees")]
         public IHttpActionResult GetAll()
         {
@@ -24,8 +35,9 @@ namespace AdventureWorkWebApi.Controllers
         [Route("employees/{id}")]
         public IHttpActionResult GetEmployee(int id)
         {
-            var employee = _ctx.vEmployees.Where(i => i.BusinessEntityID == id);
-            return Ok(employee);
+            var employee = _ctx.vEmployees.Where(i => i.BusinessEntityID == id).ToList();
+            if (employee.Any()) return Ok(employee.FirstOrDefault());
+            return NotFound();
         }
 
         [Route("employees/{id}")]

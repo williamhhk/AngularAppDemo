@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularJSDemo", "AngularJSDemo\AngularJSDemo.csproj", "{426AF471-81A6-4C06-BE32-14DE9667688B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactJSDemo", "ReactJSDemo\ReactJSDemo.csproj", "{D8306F6E-5686-4BA9-A10C-71C8A3313724}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.UnitTests", "WebApi.UnitTests\WebApi.UnitTests.csproj", "{8CEBA230-7A3D-4CF7-BF03-C1D825497771}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +36,14 @@ Global
 		{426AF471-81A6-4C06-BE32-14DE9667688B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{426AF471-81A6-4C06-BE32-14DE9667688B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{426AF471-81A6-4C06-BE32-14DE9667688B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8306F6E-5686-4BA9-A10C-71C8A3313724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8306F6E-5686-4BA9-A10C-71C8A3313724}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8306F6E-5686-4BA9-A10C-71C8A3313724}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8306F6E-5686-4BA9-A10C-71C8A3313724}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CEBA230-7A3D-4CF7-BF03-C1D825497771}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CEBA230-7A3D-4CF7-BF03-C1D825497771}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CEBA230-7A3D-4CF7-BF03-C1D825497771}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CEBA230-7A3D-4CF7-BF03-C1D825497771}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

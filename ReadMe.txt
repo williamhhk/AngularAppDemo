@@ -52,6 +52,7 @@ npm install angular-mocks --save-dev
 
 npm install karma-chrome-launcher --save-dev
 
+npm install -g karma-cli
 
 
 
